@@ -11,8 +11,9 @@ module.exports = {
   watch: true,
   entry: './src/app.js',
   output: {
-    path: path.resolve(__dirname, '../dist'),
-    filename: 'app.bundle.[contenthash:8].js'
+    path: path.resolve(__dirname, '../../public/dist'),
+    filename: 'app.bundle.[contenthash:8].js',
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -37,26 +38,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: 'app-[contenthash:8].css',
     }),
-    new HtmlWebpackPlugin({template: './src/index.hbs'})
+    new HtmlWebpackPlugin({
+      template: './src/index.hbs',
+      filename: '../../views/index.hbs'
+    })
   ],
-  devServer: {
-    contentBase: path.join(__dirname, "../dist"),
-    port: 8881,
-    host: '127.0.0.1',
-    // color: true,
-    // compress: true,
-    // lazy: true,
-    // hot: true,
-    // useLocalIp: true,
-    // open: true,
-    // watchContentBase: path.join(__dirname, "dist"),
-    watchOptions: {
-      ignored: /node_modules/,
-      aggregateTimeout: 300,
-      poll: 1000,
-    },
-    proxy: {
-      "/api": "http://127.0.0.1:8882/api"
-    }
-  }
 };
